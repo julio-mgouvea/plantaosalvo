@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajuda e Privacidade - Sistema de Passagem de Plantão Médico</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="bg-primary text-white py-3">
+        <div class="container">
+            <h1 class="text-center">Sistema de Passagem de Plantão Médico</h1>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2 class="h4 mb-0">Ajuda e Informações de Privacidade</h2>
+                            <a href="login.html" class="btn btn-light btn-sm">Voltar para Login</a>
+                        </div>
+                    </div>
+                    <div class="card-body p-4">
+                        <ul class="nav nav-tabs mb-4" id="helpTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="guide-tab" data-bs-toggle="tab" data-bs-target="#guide" type="button" role="tab" aria-controls="guide" aria-selected="true">
+                                    <i class="bi bi-book"></i> Guia de Uso
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="privacy-tab" data-bs-toggle="tab" data-bs-target="#privacy" type="button" role="tab" aria-controls="privacy" aria-selected="false">
+                                    <i class="bi bi-shield-lock"></i> Privacidade do Paciente
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="faq-tab" data-bs-toggle="tab" data-bs-target="#faq" type="button" role="tab" aria-controls="faq" aria-selected="false">
+                                    <i class="bi bi-question-circle"></i> Perguntas Frequentes
+                                </button>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content" id="helpTabsContent">
+                            <!-- Guia de Uso -->
+                            <div class="tab-pane fade show active" id="guide" role="tabpanel" aria-labelledby="guide-tab">
+                                <h3>Como Usar o Sistema</h3>
+                                
+                                <div class="card mb-4">
+                                    <div class="card-header bg-light">
+                                        <h4 class="h5 mb-0">1. Acesso ao Sistema</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Para acessar o sistema, você precisa criar uma conta ou fazer login com suas credenciais existentes:</p>
+                                        <ul>
+                                            <li><strong>Criar conta:</strong> Clique em "Criar Conta" na tela de login, preencha um nome de usuário e senha, e confirme a senha.</li>
+                                            <li><strong>Fazer login:</strong> Insira seu nome de usuário e senha nos campos correspondentes e clique em "Entrar".</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="card mb-4">
+                                    <div class="card-header bg-light">
+                                        <h4 class="h5 mb-0">2. Cadastro de Pacientes</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Para cadastrar um novo paciente:</p>
+                                        <ol>
+                                            <li>Preencha o formulário com os dados do paciente (nome, prontuário, hipótese diagnóstica, condutas realizadas)</li>
+                                            <li>Selecione a prioridade de atendimento (Alta, Média ou Baixa)</li>
+                                            <li>Registre as pendências, se houver</li>
+                                            <li>Clique em "Adicionar Paciente"</li>
+                                        </ol>
+                                        <p><strong>Observação:</strong> O campo de prontuário é opcional.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="card mb-4">
+                                    <div class="card-header bg-light">
+                                        <h4 class="h5 mb-0">3. Gerenciamento de Pacientes</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Na lista de pacientes, você pode:</p>
+                                        <ul>
+                                            <li><strong>Visualizar detalhes:</strong> Clique no botão "Ver" para visualizar todas as informações do paciente</li>
+                                            <li><strong>Remover paciente:</strong> Clique no botão "Remover" para excluir um paciente da lista</li>
+                                            <li><strong>Filtrar por prioridade:</strong> Use o seletor de prioridade para filtrar pacientes por nível de urgência</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="card mb-4">
+                                    <div class="card-header bg-light">
+                                        <h4 class="h5 mb-0">4. Geração de Relatório</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Para gerar um relatório de passagem de plantão:</p>
+                                        <ol>
+                                            <li>Preencha a data do plantão (obrigatório)</li>
+                                            <li>Opcionalmente, preencha o nome do médico plantonista e do próximo plantonista</li>
+                                            <li>Adicione observações gerais, se necessário</li>
+                                            <li>Clique em "Gerar Relatório"</li>
+                                        </ol>
+                                        <p>Para imprimir o relatório, clique no botão "Imprimir Relatório". Uma nova janela será aberta com uma versão otimizada para impressão.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="card">
+                                    <div class="card-header bg-light">
+                                        <h4 class="h5 mb-0">5. Exclusão de Dados</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>Para excluir todos os dados de pacientes manualmente:</p>
+                                        <ol>
+                                            <li>Clique no botão "Excluir Todos os Dados" na parte inferior da página</li>
+                                            <li>Confirme a ação quando solicitado</li>
+                                        </ol>
+                                        <p><strong>Observação:</strong> Todos os dados são automaticamente excluídos após 24 horas por questões de privacidade.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Privacidade do Paciente -->
+                            <div class="tab-pane fade" id="privacy" role="tabpanel" aria-labelledby="privacy-tab">
+                                <h3>Privacidade do Paciente e Conformidade com a LGPD</h3>
+                                
+                                <div class="alert alert-info mb-4">
+                                    <p class="mb-0">Este sistema foi desenvolvido com foco na proteção de dados dos pacientes e em conformidade com a Lei Geral de Proteção de Dados (LGPD).</p>
+                                </div>
+                                
+                                <div class="card mb-4">
+                                    <div class="card-header bg-light">
+                                        <h4 class="h5 mb-0">Medidas de Proteção de Dados</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5>1. Autenticação de Usuários</h5>
+                                        <p>O acesso ao sistema é protegido por autenticação com usuário e senha, garantindo que apenas profissionais autorizados possam acessar as informações dos pacientes.</p>
+                                        
+                                        <h5>2. Exclusão Automática</h5>
+                                        <p>Todos os dados dos pacientes são automaticamente excluídos após 24 horas, minimizando o risco de exposição prolongada de informações sensíveis.</p>
+                                        
+                                        <h5>3. Exclusão Manual</h5>
+                                        <p>O sistema oferece a opção de excluir todos os dados imediatamente após a passagem de plantão, permitindo que você controle quando as informações são removidas.</p>
+                                        
+                                        <h5>4. Armazenamento Local</h5>
+                                        <p>Os dados são armazenados localmente no navegador do usuário, não sendo enviados para servidores externos, o que aumenta a segurança e privacidade.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="card mb-4">
+                                    <div class="card-header bg-light">
+                                        <h4 class="h5 mb-0">Princípios da LGPD Aplicados</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul>
+                                            <li><strong>Finalidade:</strong> Os dados são coletados apenas para o propósito específico de facilitar a passagem de plantão médico.</li>
+                                            <li><strong>Adequação:</strong> Apenas informações relevantes para o atendimento médico são registradas.</li>
+                                            <li><strong>Necessidade:</strong> A coleta é limitada ao mínimo necessário para a finalidade pretendida.</li>
+                                            <li><strong>Livre acesso:</strong> Os dados podem ser facilmente visualizados pelos profissionais autorizados.</li>
+                                            <li><strong>Qualidade dos dados:</strong> O sistema permite a atualização e correção das informações.</li>
+                                            <li><strong>Transparência:</strong> Informações claras sobre o tratamento dos dados são fornecidas aos usuários.</li>
+                                            <li><strong>Segurança:</strong> Medidas técnicas e administrativas são aplicadas para proteger os dados pessoais.</li>
+                                            <li><strong>Prevenção:</strong> O sistema adota medidas para prevenir danos aos titulares dos dados.</li>
+                                            <li><strong>Não discriminação:</strong> Os dados não são utilizados para fins discriminatórios.</li>
+                                            <li><strong>Responsabilização:</strong> O sistema foi projetado para demonstrar a conformidade com as normas de proteção de dados.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div class="card">
+                                    <div class="card-header bg-light">
+                                        <h4 class="h5 mb-0">Recomendações de Boas Práticas</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <ol>
+                                            <li>Utilize o sistema apenas em dispositivos seguros e de acesso restrito.</li>
+                                            <li>Não compartilhe suas credenciais de acesso com outras pessoas.</li>
+                                            <li>Faça logout ao finalizar o uso do sistema, especialmente em computadores compartilhados.</li>
+                                            <li>Utilize a função de exclusão manual após a passagem de plantão ser concluída.</li>
+                                            <li>Evite incluir informações de identificação desnecessárias nos registros.</li>
+                                            <li>Ao imprimir relatórios, garanta que sejam armazenados de forma segura e descartados adequadamente após o uso.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Perguntas Frequentes -->
+                            <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+                                <h3>Perguntas Frequentes</h3>
+                                
+                                <div class="accordion" id="faqAccordion">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="faq1">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqAnswer1" aria-expanded="true" aria-controls="faqAnswer1">
+                                                Os dados são salvos quando fecho o navegador?
+                                            </button>
+                                        </h2>
+                                        <div id="faqAnswer1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                Sim, os dados são salvos no armazenamento local do navegador (localStorage) e permanecerão disponíveis mesmo se você fechar o navegador ou reiniciar o computador. No entanto, eles serão automaticamente excluídos após 24 horas por questões de privacidade.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="faq2">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqAnswer2" aria-expanded="false" aria-controls="faqAnswer2">
+                                                Posso acessar o sistema de diferentes dispositivos?
+                                            </button>
+                                        </h2>
+                                        <div id="faqAnswer2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                Sim, você pode acessar o sistema de qualquer dispositivo com acesso à internet. No entanto, os dados são armazenados localmente em cada dispositivo, então as informações cadastradas em um dispositivo não estarão disponíveis em outro.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="faq3">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqAnswer3" aria-expanded="false" aria-controls="faqAnswer3">
+                                                O que acontece se eu esquecer minha senha?
+                                            </button>
+                                        </h2>
+                                        <div id="faqAnswer3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                Atualmente, o sistema não possui uma funcionalidade de recuperação de senha. Se você esquecer sua senha, será necessário criar uma nova conta. Recomendamos utilizar uma senha que você possa lembrar facilmente, mas que seja segura.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="faq4">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqAnswer4" aria-expanded="false" aria-controls="faqAnswer4">
+                                                Posso recuperar dados excluídos?
+                                            </button>
+                                        </h2>
+                                        <div id="faqAnswer4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                Não, uma vez que os dados são excluídos (seja manualmente ou automaticamente após 24 horas), não é possível recuperá-los. Isso é uma medida de segurança para garantir a privacidade dos pacientes. Se você precisar manter um registro por mais tempo, recomendamos imprimir o relatório antes da exclusão dos dados.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="faq5">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqAnswer5" aria-expanded="false" aria-controls="faqAnswer5">
+                                                O sistema funciona sem internet?
+                                            </button>
+                                        </h2>
+                                        <div id="faqAnswer5" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                Não, o sistema requer conexão com a internet para ser acessado. No entanto, uma vez carregado, muitas funcionalidades podem continuar operando mesmo com interrupções temporárias na conexão, pois os dados são processados localmente no navegador.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="faq6">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqAnswer6" aria-expanded="false" aria-controls="faqAnswer6">
+                                                Como posso reportar problemas ou sugerir melhorias?
+                                            </button>
+                                        </h2>
+                                        <div id="faqAnswer6" class="accordion-collapse collapse" aria-labelledby="faq6" data-bs-parent="#faqAccordion">
+                                            <div class="accordion-body">
+                                                Para reportar problemas ou sugerir melhorias, entre em contato com o administrador do sistema. O feedback dos usuários é muito importante para continuarmos aprimorando o sistema e tornando-o mais útil para a equipe médica.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-3 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">Sistema de Passagem de Plantão Médico &copy; 2025</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

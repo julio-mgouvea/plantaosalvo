@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Passagem de Plantão Médico</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="bg-primary text-white py-3">
+        <div class="container">
+            <h1 class="text-center">Sistema de Passagem de Plantão Médico</h1>
+        </div>
+    </header>
+
+    <main class="container my-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h4 mb-0">Cadastro de Pacientes</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="patientForm">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="patientName" class="form-label">Nome do Paciente</label>
+                                    <input type="text" class="form-control" id="patientName" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="patientAge" class="form-label">Idade</label>
+                                    <input type="number" class="form-control" id="patientAge" min="0" max="120">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="patientRecord" class="form-label">Número do Prontuário</label>
+                                    <input type="text" class="form-control" id="patientRecord">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="diagnosis" class="form-label">Hipótese Diagnóstica</label>
+                                <textarea class="form-control" id="diagnosis" rows="2" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="procedures" class="form-label">Condutas Realizadas</label>
+                                <textarea class="form-control" id="procedures" rows="3" required></textarea>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="priority" class="form-label">Prioridade de Atendimento</label>
+                                    <select class="form-select" id="priority" required>
+                                        <option value="" selected disabled>Selecione a prioridade</option>
+                                        <option value="alta">Alta (Emergência)</option>
+                                        <option value="media">Média (Urgência)</option>
+                                        <option value="baixa">Baixa (Não urgente)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="pendingTasks" class="form-label">Pendências</label>
+                                    <textarea class="form-control" id="pendingTasks" rows="2"></textarea>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="submit" class="btn btn-primary">Adicionar Paciente</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h4 mb-0">Lista de Pacientes <span class="badge bg-light text-dark ms-2" id="patientCounter">0</span></h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            <p class="mb-0"><i class="bi bi-info-circle"></i> Todos os dados serão automaticamente excluídos após 24 horas por questões de privacidade (LGPD).</p>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="filterPriority" class="form-label">Filtrar por Prioridade</label>
+                                <select class="form-select" id="filterPriority">
+                                    <option value="todos" selected>Todos</option>
+                                    <option value="alta">Alta (Emergência)</option>
+                                    <option value="media">Média (Urgência)</option>
+                                    <option value="baixa">Baixa (Não urgente)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-end justify-content-end">
+                                <button id="deleteAllData" class="btn btn-danger">
+                                    <i class="bi bi-trash"></i> Excluir Todos os Dados
+                                </button>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Idade</th>
+                                        <th>Prontuário</th>
+                                        <th>Hipótese Diagnóstica</th>
+                                        <th>Prioridade</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="patientList">
+                                    <!-- Lista de pacientes será inserida aqui via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal para edição de paciente -->
+                <div class="modal fade" id="editPatientModal" tabindex="-1" aria-labelledby="editPatientModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title" id="editPatientModalLabel">Editar Paciente</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editPatientForm">
+                                    <input type="hidden" id="editPatientId">
+                                    <div class="row mb-3">
+                                        <div class="col-md-4">
+                                            <label for="editPatientName" class="form-label">Nome do Paciente</label>
+                                            <input type="text" class="form-control" id="editPatientName" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="editPatientAge" class="form-label">Idade</label>
+                                            <input type="number" class="form-control" id="editPatientAge" min="0" max="120">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="editPatientRecord" class="form-label">Número do Prontuário</label>
+                                            <input type="text" class="form-control" id="editPatientRecord">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editDiagnosis" class="form-label">Hipótese Diagnóstica</label>
+                                        <textarea class="form-control" id="editDiagnosis" rows="2" required></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="editProcedures" class="form-label">Condutas Realizadas</label>
+                                        <textarea class="form-control" id="editProcedures" rows="3" required></textarea>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="editPriority" class="form-label">Prioridade de Atendimento</label>
+                                            <select class="form-select" id="editPriority" required>
+                                                <option value="" selected disabled>Selecione a prioridade</option>
+                                                <option value="alta">Alta (Emergência)</option>
+                                                <option value="media">Média (Urgência)</option>
+                                                <option value="baixa">Baixa (Não urgente)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="editPendingTasks" class="form-label">Pendências</label>
+                                            <textarea class="form-control" id="editPendingTasks" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-primary" id="saveEditPatient">Salvar Alterações</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h4 mb-0">Gerar Relatório de Passagem de Plantão</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="reportDate" class="form-label">Data do Plantão</label>
+                            <input type="date" class="form-control" id="reportDate" required>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="doctorName" class="form-label">Médico Plantonista</label>
+                                <input type="text" class="form-control" id="doctorName">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="nextDoctorName" class="form-label">Médico do Próximo Plantão</label>
+                                <input type="text" class="form-control" id="nextDoctorName">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="additionalNotes" class="form-label">Observações Gerais</label>
+                            <textarea class="form-control" id="additionalNotes" rows="3"></textarea>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button id="generateReport" class="btn btn-success">Gerar Relatório</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white py-3 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">Sistema de Passagem de Plantão Médico &copy; 2025</p>
+        </div>
+    </footer>
+
+    <!-- Modal para visualização detalhada do paciente -->
+    <div class="modal fade" id="patientDetailsModal" tabindex="-1" aria-labelledby="patientDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="patientDetailsModalLabel">Detalhes do Paciente</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body" id="patientDetailsContent">
+                    <!-- Conteúdo será preenchido via JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para o relatório gerado -->
+    <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="reportModalLabel">Relatório de Passagem de Plantão</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body" id="reportContent">
+                    <!-- Conteúdo será preenchido via JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-primary" id="printReport">Imprimir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
