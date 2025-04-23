@@ -84,12 +84,16 @@
     setTimeout(() => div.remove(), 3000);
   }
 
-  // Lógica fake (simulação)
-  document.getElementById("form-login").addEventListener("submit", function(e) {
-    e.preventDefault();
-    mostrarMensagem("Login feito com sucesso!");
-    // Aqui você pode redirecionar ou autenticar
-  });
+ // Lógica fake (com redirecionamento)
+document.getElementById("form-login").addEventListener("submit", function(e) {
+  e.preventDefault();
+  mostrarMensagem("Login feito com sucesso!");
+
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 1000); // espera 1 segundo antes de redirecionar
+});
+
 
   document.getElementById("form-cadastro").addEventListener("submit", function(e) {
     e.preventDefault();
