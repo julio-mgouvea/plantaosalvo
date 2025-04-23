@@ -2,77 +2,101 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login - PlantaoSalvo</title>
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <!-- Ícone da aba -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <!-- Estilos adicionais -->
-  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">PlantaoSalvo</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="login.html">Login</a></li>
-          <li class="nav-item"><a class="nav-link" href="help.html">Ajuda</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">PlantaoSalvo</a>
+  </div>
+</nav>
 
-  <!-- Formulário de login -->
-  <div class="container mt-5" style="max-width: 400px;">
-    <h2 class="mb-4 text-center">Entrar no sistema</h2>
-    <form id="login-form">
-      <div class="mb-3">
-        <label for="login-email" class="form-label">E-mail</label>
-        <input type="email" class="form-control" id="login-email" required>
-      </div>
-      <div class="mb-3">
-        <label for="login-senha" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="login-senha" required>
-      </div>
-      <button type="submit" class="btn btn-primary w-100">Entrar</button>
-    </form>
+<!-- Conteúdo -->
+<div class="container mt-5" style="max-width: 400px;">
+  <div class="btn-group w-100 mb-4" role="group">
+    <button id="btn-login" class="btn btn-outline-primary active">Login</button>
+    <button id="btn-cadastro" class="btn btn-outline-secondary">Cadastrar</button>
   </div>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Formulário de Login -->
+  <form id="form-login">
+    <div class="mb-3">
+      <label for="login-email" class="form-label">E-mail</label>
+      <input type="email" class="form-control" id="login-email" required>
+    </div>
+    <div class="mb-3">
+      <label for="login-senha" class="form-label">Senha</label>
+      <input type="password" class="form-control" id="login-senha" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+  </form>
 
-  <!-- Mensagem de feedback -->
-  <script>
-    function mostrarMensagem(texto, tipo = "success") {
-      const div = document.createElement("div");
-      div.className = `alert alert-${tipo} text-center fixed-top m-0`;
-      div.textContent = texto;
-      document.body.appendChild(div);
-      setTimeout(() => div.remove(), 3000);
-    }
+  <!-- Formulário de Cadastro (oculto inicialmente) -->
+  <form id="form-cadastro" class="d-none">
+    <div class="mb-3">
+      <label for="cadastro-email" class="form-label">E-mail</label>
+      <input type="email" class="form-control" id="cadastro-email" required>
+    </div>
+    <div class="mb-3">
+      <label for="cadastro-senha" class="form-label">Senha</label>
+      <input type="password" class="form-control" id="cadastro-senha" required>
+    </div>
+    <button type="submit" class="btn btn-success w-100">Criar Conta</button>
+  </form>
+</div>
 
-    document.getElementById("login-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      // Simulação de login para testes
-      const email = document.getElementById("login-email").value;
-      const senha = document.getElementById("login-senha").value;
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-      if (email && senha) {
-        mostrarMensagem("Login bem-sucedido!");
-        // redirecionar ou autenticar de verdade aqui
-        // window.location.href = "index.html";
-      } else {
-        mostrarMensagem("Preencha os campos!", "danger");
-      }
-    });
-  </script>
+<script>
+  const btnLogin = document.getElementById("btn-login");
+  const btnCadastro = document.getElementById("btn-cadastro");
+  const formLogin = document.getElementById("form-login");
+  const formCadastro = document.getElementById("form-cadastro");
+
+  btnLogin.addEventListener("click", () => {
+    formLogin.classList.remove("d-none");
+    formCadastro.classList.add("d-none");
+    btnLogin.classList.add("active");
+    btnCadastro.classList.remove("active");
+  });
+
+  btnCadastro.addEventListener("click", () => {
+    formLogin.classList.add("d-none");
+    formCadastro.classList.remove("d-none");
+    btnLogin.classList.remove("active");
+    btnCadastro.classList.add("active");
+  });
+
+  // Mensagem de feedback
+  function mostrarMensagem(msg, tipo = "success") {
+    const div = document.createElement("div");
+    div.className = `alert alert-${tipo} text-center fixed-top m-0`;
+    div.textContent = msg;
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 3000);
+  }
+
+  // Lógica fake (simulação)
+  document.getElementById("form-login").addEventListener("submit", function(e) {
+    e.preventDefault();
+    mostrarMensagem("Login feito com sucesso!");
+    // Aqui você pode redirecionar ou autenticar
+  });
+
+  document.getElementById("form-cadastro").addEventListener("submit", function(e) {
+    e.preventDefault();
+    mostrarMensagem("Conta criada com sucesso!");
+    // Aqui você pode cadastrar no Firebase depois
+  });
+</script>
+
 </body>
 </html>
