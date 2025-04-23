@@ -103,10 +103,17 @@
 
     // Simulação de login
     formLogin.addEventListener("submit", function (e) {
-      e.preventDefault();
-      alert("Login realizado com sucesso!");
-      window.location.href = "index.html";
-    });
+  e.preventDefault();
+  alert("Login realizado com sucesso!");
+
+  const usuario = {
+    username: "julio"
+  };
+
+  localStorage.setItem("plantaoMedicoAuth", JSON.stringify(usuario));
+  window.location.href = "index.html";
+});
+
 
     // Simulação de criação de conta
     formCadastro.addEventListener("submit", function (e) {
