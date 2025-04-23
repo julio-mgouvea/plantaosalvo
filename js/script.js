@@ -38,7 +38,7 @@ function checkAuth() {
     currentUser = JSON.parse(authData);
     
     // Adicionar informações do usuário e botão de logout
-    const headerContainer = document.querySelector('header .container');
+    const headerContainer = document.querySelector('.navbar .container-fluid');
     const userInfo = document.createElement('div');
     userInfo.className = 'user-info text-end';
     userInfo.innerHTML = `
