@@ -803,3 +803,11 @@ function showAlert(message, type) {
         setTimeout(() => alertDiv.remove(), 300);
     }, 5000);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const deleteBtn = document.getElementById('deleteAllData');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', handleDeleteAllData);
+    }
+  });
+  
