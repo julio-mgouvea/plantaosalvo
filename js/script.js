@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Verificar autenticação
     checkAuth();
     
-    // Inicializar dados do localStorage se existirem
-    loadPatientsFromStorage();
+   // Carregar dados do Firebase
+    loadPatientsFromFirebase(); 
     
     // Configurar manipuladores de eventos
     setupEventListeners();
@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar verificação periódica de expiração
     setInterval(checkDataExpiration, 60 * 60 * 1000); // Verificar a cada hora
 });
+
 
 // Verificar autenticação
 function checkAuth() {
@@ -52,10 +53,15 @@ function checkAuth() {
 }
 
 // Manipular logout
-function handleLogout() {
-    localStorage.removeItem(AUTH_STORAGE_KEY);
-    window.location.href = 'login.html';
-}
+function handleDeleteAllData() {
+    if (confirm('Tem certeza que deseja excluir TODOS os dados de pacientes? Esta ação não pode ser desfeita.')) {
+      const userId = currentUser.uid;
+      db.ref(`users/${userId}/patients`).remove();
+      patients = [];
+      renderPatientList();
+      showAlert('Todos os dados de pacientes foram excluídos com sucesso.', 'success');
+    }
+  }  
 
 // Configurar todos os event listeners
 function setupEventListeners() {
@@ -79,19 +85,25 @@ function setupEventListeners() {
 }
 
 // Carregar pacientes do localStorage
-function loadPatientsFromStorage() {
-    const storedPatients = localStorage.getItem(PATIENTS_STORAGE_KEY);
-    if (storedPatients) {
-        patients = JSON.parse(storedPatients);
-        // Encontrar o maior ID para continuar a contagem
-        patientIdCounter = patients.reduce((maxId, patient) => Math.max(maxId, patient.id + 1), 1);
-    }
-}
+function loadPatientsFromFirebase() {
+    const userId = currentUser.uid;
+    db.ref(`users/${userId}/patients`).on('value', (snapshot) => {
+      const data = snapshot.val();
+      patients = data ? Object.values(data) : [];
+      patientIdCounter = patients.reduce((maxId, p) => Math.max(maxId, p.id + 1), 1);
+      renderPatientList();
+    });
+  }  
 
 // Salvar pacientes no localStorage
-function savePatientsToStorage() {
-    localStorage.setItem(PATIENTS_STORAGE_KEY, JSON.stringify(patients));
-}
+function savePatientsToFirebase() {
+    const userId = currentUser.uid;
+    const updates = {};
+    patients.forEach(p => {
+      updates[`users/${userId}/patients/${p.id}`] = p;
+    });
+    db.ref().update(updates);
+  }  
 
 // Verificar dados expirados (mais de 24 horas)
 function checkDataExpiration() {
@@ -111,7 +123,7 @@ function checkDataExpiration() {
         });
         
         // Salvar lista atualizada
-        savePatientsToStorage();
+        savePatientsToFirebase();
         
         // Atualizar a lista na interface
         renderPatientList();
@@ -128,7 +140,7 @@ function handleDeleteAllData() {
         patients = [];
         
         // Salvar lista vazia
-        savePatientsToStorage();
+        savePatientsToFirebase();
         
         // Atualizar a interface
         renderPatientList();
@@ -159,7 +171,8 @@ function handlePatientFormSubmit(event) {
     patients.push(patient);
     
     // Salvar no localStorage
-    savePatientsToStorage();
+    savePatientsToFirebase();
+
     
     // Atualizar a lista de pacientes
     renderPatientList();
@@ -346,7 +359,8 @@ function saveEditPatient() {
     patients[patientIndex] = updatedPatient;
     
     // Salvar no localStorage
-    savePatientsToStorage();
+    savePatientsToFirebase();
+
     
     // Atualizar a lista de pacientes
     renderPatientList();
@@ -362,7 +376,7 @@ function saveEditPatient() {
 function removePatient(patientId) {
     if (confirm('Tem certeza que deseja remover este paciente?')) {
         patients = patients.filter(p => p.id !== patientId);
-        savePatientsToStorage();
+        savePatientsToFirebase();
         renderPatientList();
         showAlert('Paciente removido com sucesso!', 'warning');
     }
